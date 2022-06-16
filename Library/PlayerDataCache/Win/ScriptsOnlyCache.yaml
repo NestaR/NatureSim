@@ -229,12 +229,6 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 41cc180664d2aaf18cc028a7690c96ca
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SelectionManager
-  - hash:
-      serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
