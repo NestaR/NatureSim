@@ -8,7 +8,6 @@ public class AddGrass : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool grassPicked = false;
     public GameObject prefab;
-    AddSheep pick;
     Vector3 mousePos;
     void Update()
     {

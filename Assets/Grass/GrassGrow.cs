@@ -12,7 +12,6 @@ public class GrassGrow : MonoBehaviour
     public Material GrassFinal;
     public int grassAmount, grassDensity;
 
-
     float t, timer, growtimer, spreadtimer;
     bool lerping = false, old = false, spread = false, onPlane;
     float lerpTime = 0;
@@ -32,15 +31,10 @@ public class GrassGrow : MonoBehaviour
         //Sets the material for better lerping
         this.grassRenderer.material = GrassBase;
         transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-        Collider[] planeCheck = Physics.OverlapSphere(center, 0.5f);
-        foreach (var check in planeCheck)
-        {//Check to see if the grass is on the plane
-            if (check.tag == "Plane")
-            {
-                onPlane = true;
-            }
-        }
-        if(!onPlane)
+
+        checkArea(center, 0.5f);
+
+        if (!onPlane)
         {//If the grass is not on the plane it gets removed
             Destroy(this.gameObject);
         }
@@ -55,34 +49,29 @@ public class GrassGrow : MonoBehaviour
         lerpTime += Time.deltaTime;
         //Lerp the size of the grass to display growth
         transform.localScale = Vector3.Lerp(start, end, lerpTime * 0.05f);
-        Collider[] hitColliders = Physics.OverlapSphere(center, 4f);
-        foreach (var hitCollider in hitColliders)
-        {//Check for the density of grass around its area
-            if (hitCollider.tag == "Grass")
-            {
-                grassAmount += 1;
-            }
-        }
-        
+        checkArea(center, 10f);
 
-        
+
         if (!lerping)
         {
-            spreadtimer += Time.deltaTime;
-            if (spreadtimer >= Random.Range(9.0f, 13.0f))
-            {//If a certain amount of time has passed the grass is allowed to spread
-                spreadtimer = 0;
-                spread = true;
-            }
-
-            if (spread && grassAmount <= grassDensity)
+            if (grassAmount <= grassDensity)
             {//Gets a random point within the area of the grass and spawns another piece of grass
-                Vector2 pos = Random.insideUnitCircle * 5f;
+                spreadtimer += Time.deltaTime;
+                Vector2 pos = Random.insideUnitCircle * 30f;
                 Vector3 spot = grassRenderer.transform.position + new Vector3(pos.x, 0, pos.y);
-                Instantiate(prefab, spot, Quaternion.identity);
-                spread = false;
+
+                if (spreadtimer >= Random.Range(5.0f, 11.0f))
+                {//If a certain amount of time has passed the grass is allowed to spread
+                    spread = false;
+                    checkArea(center, 0.5f);
+                    if (spread)
+                    {
+                        Instantiate(prefab, spot, Quaternion.identity);
+                        spreadtimer = 0;
+                    }
+                }
             }
-            if (timer >= 25f)
+            if (timer >= 45f)
             {//After a certain amount of time the grass will grow old and change colour
                 lerping = true;
                 t = 0;
@@ -91,20 +80,46 @@ public class GrassGrow : MonoBehaviour
             }
         }
 
+        
+
         if (lerping)
         {//Changes the colour of the grass to signify age
+            this.gameObject.name = "Old Grass";
             grassRenderer.material.Lerp(GrassBase, GrassFinal, t);
-            if (t >= 1.0f)
+            if (t >= 4.0f)
             {//After changing colour it prepares to be destroyed
                 Debug.Log("Stopped lerping");
-                old = true; 
+                old = true;
+                
             }
-            if(old && timer >= 3f)
+            if(old)
             {//Destroy the grass and activates the death particles              
                 Destroy(this.gameObject);
                 Destroy(Instantiate(deathEffect.gameObject, transform.position, Quaternion.identity) as GameObject, deathEffect.startLifetime);
             }
         } 
     }
+    void LateUpdate()
+    {//Makes sure the grass spawns above the terrain
+        Vector3 pos = transform.position;
+        pos.y = Terrain.activeTerrain.SampleHeight(transform.position);
+        transform.position = pos;
+    }
 
+    public void checkArea(Vector3 middle, float radius)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(middle, radius);
+        foreach (var hitCollider in hitColliders)
+        {//Check for the density of grass around its area
+            if (hitCollider.tag == "Grass")
+            {
+                grassAmount += 1;
+            }
+            if (hitCollider.tag == "Plane")
+            {
+                onPlane = true;
+                spread = true;
+            }
+        }
+    }
 }

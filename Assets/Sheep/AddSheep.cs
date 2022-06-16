@@ -36,14 +36,14 @@ public class AddSheep : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void placeSheep()
     {
-        Vector3 wordPos;
+        Vector3 worldPos;
         //Returns ray going from camera through a screen point to get the location of the position clicked on the plane
         Ray ray = Camera.main.ScreenPointToRay(mousePos);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000f))
         {//Places the sheep on the position pointed
-            wordPos = hit.point;
-            Instantiate(prefab, wordPos, Quaternion.identity);
+            worldPos = hit.point;
+            Instantiate(prefab, worldPos, Quaternion.identity);
         }
     }
     public void OnPointerEnter(PointerEventData pointerEventData)

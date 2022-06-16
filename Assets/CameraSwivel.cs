@@ -58,7 +58,7 @@ public class CameraSwivel : MonoBehaviour
 
             this.CameraDistance += ScrollAmount * -1f;
 
-            this.CameraDistance = Mathf.Clamp(this.CameraDistance, 1.5f, 100f);
+            this.CameraDistance = Mathf.Clamp(this.CameraDistance, 1.5f, 150f);
         }
         //Camera rig Transformations
         Quaternion QT = Quaternion.Euler(CameraRotation.y, CameraRotation.x, 0);
