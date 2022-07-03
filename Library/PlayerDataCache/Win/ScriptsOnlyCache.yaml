@@ -14,6 +14,7 @@ ScriptsOnlyBuild:
     - CameraSwivel
     - DayNightCycle
     - ExitButtonClick
+    - FieldOfView
     - GrassGrow
     - HealthScript
     - MenuScript
@@ -85,7 +86,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1460}
     - Class: 114
-      Script: {instanceID: 1542}
+      Script: {instanceID: 1462}
+    - Class: 114
+      Script: {instanceID: 1544}
     - Class: 114
       Script: {instanceID: 1692}
     - Class: 114
@@ -105,37 +108,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2174}
     - Class: 114
-      Script: {instanceID: 2258}
+      Script: {instanceID: 2260}
     - Class: 114
-      Script: {instanceID: 2272}
+      Script: {instanceID: 2274}
     - Class: 114
-      Script: {instanceID: 2292}
+      Script: {instanceID: 2294}
     - Class: 114
-      Script: {instanceID: 2404}
+      Script: {instanceID: 2406}
     - Class: 114
-      Script: {instanceID: 2506}
+      Script: {instanceID: 2508}
     - Class: 114
-      Script: {instanceID: 2616}
+      Script: {instanceID: 2618}
     - Class: 114
-      Script: {instanceID: 2620}
+      Script: {instanceID: 2622}
     - Class: 114
-      Script: {instanceID: 2728}
+      Script: {instanceID: 2730}
     - Class: 114
-      Script: {instanceID: 2738}
+      Script: {instanceID: 2740}
     - Class: 114
-      Script: {instanceID: 2776}
+      Script: {instanceID: 2778}
     - Class: 114
-      Script: {instanceID: 2918}
+      Script: {instanceID: 2920}
     - Class: 114
-      Script: {instanceID: 2988}
+      Script: {instanceID: 2990}
     - Class: 114
-      Script: {instanceID: 2998}
+      Script: {instanceID: 3000}
     - Class: 114
-      Script: {instanceID: 3118}
+      Script: {instanceID: 3120}
     - Class: 114
-      Script: {instanceID: 3134}
-    - Class: 114
-      Script: {instanceID: 3158}
+      Script: {instanceID: 3136}
     - Class: 114
       Script: {instanceID: 3232}
     - Class: 114
@@ -150,6 +151,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3636}
     - Class: 114
       Script: {instanceID: 3706}
+    - Class: 114
+      Script: {instanceID: 3726}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -197,6 +200,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: ae83e830e7a90c0aff918c4c2e520825
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: GraphicRaycaster
   - hash:
       serializedVersion: 2
       Hash: 5ab533713adae59372fb3e10a585c186
@@ -349,7 +358,7 @@ ScriptsOnlyBuild:
     className: WarpTextExample
   - hash:
       serializedVersion: 2
-      Hash: 58b235b5588a85d7fb7fca38a417b2fb
+      Hash: 86158a50904d13f706a63213493ee805
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Sheep
@@ -553,7 +562,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: aaa5d69f99dd222a11805d9a5f48c142
+      Hash: bf4698a3b70ae92d7166ab31c3de7991
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoidCohesion
@@ -703,7 +712,7 @@ ScriptsOnlyBuild:
     className: WaterBasic
   - hash:
       serializedVersion: 2
-      Hash: bf4698a3b70ae92d7166ab31c3de7991
+      Hash: 02608f962ad8af5ae7f38b9cda7aa463
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoidAlignment
@@ -761,12 +770,6 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: VertexColorCycler
-  - hash:
-      serializedVersion: 2
-      Hash: ae83e830e7a90c0aff918c4c2e520825
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: GraphicRaycaster
   - hash:
       serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
@@ -965,6 +968,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp-firstpass.dll
     namespaceName: UnityStandardAssets.Water
     className: SpecularLighting
+  - hash:
+      serializedVersion: 2
+      Hash: b5237cc11f508d2635af51c6229dbdb9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FieldOfView
   - hash:
       serializedVersion: 2
       Hash: dd7520b7d4e690e8c593273e7b9fbe80

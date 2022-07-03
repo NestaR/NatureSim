@@ -15,11 +15,13 @@ public class Sheep : MonoBehaviour
     private UnityEngine.AI.NavMeshAgent agent;
     private float timer, hungertimer, healthtimer, agetimer, lerptimer, birthtimer;
     bool sleeping = false;
-    public bool sheepleader = true, oldest = true, hungry = false;
+    public bool follower = false, oldest = true, hungry = false;
+    bool hasCollided = false, oldestExists = false;
     float m_MaxDistance;
     bool m_HitDetect;
     Vector3 flocktarget;
     Vector3 center;
+    Vector3 randTurn;
     Collider sheepCollider;
     RaycastHit m_Hit;
     HealthScript sheepHealth;
@@ -54,26 +56,28 @@ public class Sheep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(oldest)
-        {
-            //sheepHealth.health = 50;
+        if (!hasCollided)
+        {//If there are no sheep nearby it becomes the oldest
+            oldest = true;
+            follower = false;
         }
-        else
+        if(!oldest && !hungry)
         {
-            //sheepHealth.health = 100;
-        }
+            follower = true;
+        }    
         if (velocity.magnitude > maxVelocity)
-        {
+        {//Stops sheep from going past max velocity
             velocity = velocity.normalized * maxVelocity;
         }
-        if (sheepHealth.health < 35)
-        {
+        if (sheepHealth.health <= 20)
+        {//If the sheeps health is low enough it will start looking for food
             hungry = true;
         }
         else
         {
             hungry = false;
         }
+
         if (GameObject.Find("Day/Night").GetComponent<DayNightCycle>().dayTime)
         {//Make the sheep only move during the day time
             sleeping = false;
@@ -87,39 +91,48 @@ public class Sheep : MonoBehaviour
             lerptimer += Time.deltaTime;
             //Have the animal grow in size over time
             transform.localScale = Vector3.Lerp(child, adult, lerptimer * 0.03f);
-
-            Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 10f);
+            oldestExists = false;
+            Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, 20f);
             foreach (var hitCollider in hitColliders)
-            {//Check for the density of grass around its area
+            {
                 if (hitCollider.tag == "Sheep")
-                {
+                {                  
                     var diff = hitCollider.transform.position - this.transform.position;
                     Sheep s2 = hitCollider.gameObject.GetComponent<Sheep>();
-                    if (diff.magnitude < 10f)
-                    {//Calculate the difference between the sheep and add it to the average
+                    if (diff.magnitude < 20f)
+                    {//Check if there is an older sheep nearby
                         if (diff != Vector3.zero)
                         {
-                            if (hitCollider.transform.position.magnitude > this.transform.position.magnitude && s2.oldest)
-                            {
-                                oldest = false;
+                            hasCollided = true;
+                            if (this.agetimer < s2.agetimer)
+                            {//Check if this sheep is younger than another sheep
+                                oldest = false;                             
                             }
-                            if (hitCollider.transform.position.magnitude < this.transform.position.magnitude && s2.oldest && !oldest)
-                            {
-                                //maxVelocity -= 0.1f;
+                            if (s2.oldest || oldest)
+                            {//Check if the oldest sheep is in the herd
+                                oldestExists = true;
                             }
-
+                            if (!oldestExists && this.agetimer > s2.agetimer)
+                            {//If the oldest sheep leaves the herd it will make the next oldest the leader
+                                oldest = true;
+                                follower = false;
+                            }
                         }
                     }
+                }
+                else
+                {
+                    hasCollided = false;
                 }
             }
 
             if (healthtimer >= 7f)
-            {//Lower the sheeps health by 10 every 5 seconds
+            {//Lower the sheeps health every 5 seconds
                 sheepHealth.health -= 9;
                 healthtimer = 0;
                 if(maxVelocity < 4f)
                 {//Increase the sheep speed slightly as time goes on
-                    maxVelocity += 0.15f;
+                    maxVelocity += 0.05f;
                 }
             }
             if (birthtimer >= 30f && sheepHealth.health >= 65)
@@ -132,12 +145,12 @@ public class Sheep : MonoBehaviour
             }
         }
         else
-        {//At night the sheep stop moving and lose less health over time
+        {//At night the sheep stop moving and gain small amounts of health
             sleeping = true;
             healthtimer += Time.deltaTime;
-            if (healthtimer >= 5f)
-            {//Lower the sheeps health by 3 every 5 seconds
-                sheepHealth.health -= 0;
+            if (healthtimer >= 10f)
+            {
+                sheepHealth.health += 3;
                 healthtimer = 0;
             }
         }
@@ -145,15 +158,15 @@ public class Sheep : MonoBehaviour
         {//If the sheep dies then activate its death particle effect
             Destroy(Instantiate(deathEffect.gameObject, transform.position, Quaternion.identity) as GameObject, deathEffect.startLifetime);
         }
-        //velocity = this.transform.forward * maxVelocity;
+
     }
     void LateUpdate()
     {
-        if (timer >= Random.Range(3f, 6f) && (oldest || hungry))
-        {//make the sheep turn every 5 sevonds
-         //    this.transform.Rotate(0.0f, Random.Range(-180.0f, 180.0f), 0.0f, Space.Self);
-            velocity += new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
-            maxVelocity += 0.05f;
+        if (timer >= Random.Range(5f, 9f) && (oldest || hungry))
+        {//Make the sheep turn every random seconds
+            randTurn = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+            velocity = Vector3.Lerp(velocity, randTurn, 0.8f);
+            maxVelocity += 0.005f;
             timer = 0;
         }
     }
@@ -169,7 +182,7 @@ public class Sheep : MonoBehaviour
             //Debug.Log("Hit : " + m_Hit.collider.name);
             
             if (m_Hit.collider.name == "Old Grass")
-            {
+            {//If the grass os older the sheep gain less health from eating it
                 sheepHealth.health += 5;
             }
             else

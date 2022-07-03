@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 452282288}
   - component: {fileID: 452282287}
   - component: {fileID: 452282286}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,8 @@ GameObject:
   - component: {fileID: 4996658078780295670}
   - component: {fileID: 7594415570462115721}
   - component: {fileID: 731865817502659103}
-  m_Layer: 0
+  - component: {fileID: -528744416913708075}
+  m_Layer: 6
   m_Name: SheepWhite
   m_TagString: Sheep
   m_Icon: {fileID: 0}
@@ -273,11 +274,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16459d013be69dd4ebf09fa55a86a982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVelocity: 2
+  maxVelocity: 1.5
   velocity: {x: 1, y: 0, z: 0}
   prefab: {fileID: 1965851562501010}
   deathEffect: {fileID: 1289533452649990515, guid: 40ef803d3ad47764ca4f70c3b397e328, type: 3}
-  sheepleader: 1
+  follower: 0
   oldest: 1
   hungry: 0
 --- !u!114 &7089307902296267446
@@ -292,7 +293,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d487bce67011944bd57ca3ba7718a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
+  radius: 20
+  viewRadius: 20
+  viewAngle: 330
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
 --- !u!114 &4996658078780295670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,8 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814fc9839a08c4446a3ee3cc5aff29d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 10
-  leader: 0
+  radius: 20
 --- !u!114 &7594415570462115721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,8 +340,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ddd6e8a2af31d24790203f80def39cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 3
-  repulsionForce: 0.5
+  radius: 0.5
+  repulsionForce: 1
+--- !u!114 &-528744416913708075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965851562501010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d490c581622b37e49a5e8819c7c588a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  viewRadius: 10
+  viewAngle: 60
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  visibleTargets: []
 --- !u!1001 &773463118855490521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -340,6 +370,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 452282285}
     m_Modifications:
+    - target: {fileID: 773463117936240770, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 773463118143031891, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 773463118708950636, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 773463119134626788, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
       propertyPath: m_Value
       value: 1
@@ -444,6 +486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slider
       objectReference: {fileID: 0}
+    - target: {fileID: 773463119134626791, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 773463119644160998, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -455,6 +501,10 @@ PrefabInstance:
     - target: {fileID: 773463119644160998, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 773463119644161001, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b54fd2caa1bc72d4e860d0aba9639a96, type: 3}

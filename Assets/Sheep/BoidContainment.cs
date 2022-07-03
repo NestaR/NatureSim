@@ -13,7 +13,7 @@ public class BoidContainment : MonoBehaviour
     {
         boid = GetComponent<Sheep>();
         if (boid.transform.position.x < -2 && boid.transform.position.x > -95 && boid.transform.position.z > 10 && boid.transform.position.z < 95)
-        {
+        {//Check which area the boid is in
             area1 = true;
             area2 = false;
             area3 = false;
@@ -35,7 +35,7 @@ public class BoidContainment : MonoBehaviour
     void Update()
     {
         if(area1)
-        {
+        {//If a boid is in a certain area of the map it will stay within those bounds
             if (boid.transform.position.x < -95)
             {
                 boid.velocity += new Vector3(10f, 0f, 0f);

@@ -9,65 +9,92 @@ public class BoidAlignment : MonoBehaviour
     private Sheep boid;
     public float radius;
     Vector3 startP;
-    BoidCohesion leader;
+
+    public float viewRadius;
+    [Range(0, 360)]
+    public float viewAngle;
+
+    public LayerMask targetMask;
+    public LayerMask obstacleMask;
+
+    [HideInInspector]
+    public List<Transform> visibleTargets = new List<Transform>();
 
     void Start()
     {
         boid = GetComponent<Sheep>();
         startP = this.transform.position;
-        leader = this.GetComponent<BoidCohesion>();
+        StartCoroutine("FindTargetsWithDelay", 1f);
     }
 
     void Update()
     {
         //Get all sheep in the scene
         var boids = FindObjectsOfType<Sheep>();
-        //var average = new Vector3(0f, 0f, 0f);
-        var average = startP;
-        //Count how many sheep were found
+        var oldestVel = startP;
         var found = 0;
-        //Collider[] hitColliders = Physics.OverlapSphere(this.transform.position, radius);
-        //foreach (var hitCollider in hitColliders)
-        //{//Check for the density of grass around its area
-        //    if (hitCollider.tag == "Sheep")
-        //    {
-        //        Sheep s2 = hitCollider.gameObject.GetComponent<Sheep>();
-        //        var diff = hitCollider.transform.position - this.transform.position;
-        //        if (diff.magnitude < radius) 
-        //        {//Calculate the difference between the sheep and add it to the average
-        //            if (diff != Vector3.zero && s2.oldest)
-        //            {
-        //                average += boid.velocity;
-        //                found += 1;
-        //            }
-        //        }
-        //    }
-        //}
-        if(!boid.oldest && !boid.hungry)
-        {
-            foreach (var boid in boids.Where(b => b != boid))
-            {//Go through every boid except itself
-                var diff = boid.transform.position - this.transform.position;
-                if (boid.oldest)
+        float oldestMaxVel = 0;
+        
+        if(boid.follower)
+        {//Follower sheep look for the oldest sheep nearby to gets its velocity
+
+            foreach (Transform visibleTarget in visibleTargets)
+            {
+                Sheep s2 = visibleTarget.gameObject.GetComponent<Sheep>();
+                if (s2.oldest)
                 {
-                    average = boid.velocity;
+                    oldestMaxVel = s2.maxVelocity;
+                    oldestVel = s2.velocity;
                     found = 1;
                 }
-                //if (diff.magnitude < radius)
-                //{//Find the velocity of the sheep and add it to the average
-                //    average += boid.velocity;
-                //    //1 more sheep is found
-                //    found += 1;
-                //}
-
             }
 
-            if (found > 0 && !boid.oldest && !boid.hungry)
-            {//If any objects are found get the average of the difference and the number of sheep found
-                average = average / found;
-                //Lerp towards the average velocity so everything goes in the same direction
-                boid.velocity += Vector3.Lerp(boid.velocity, average, Time.deltaTime);
+            if (found > 0 && boid.follower)
+            {//Lerp towards the velocity of the oldest sheep so they go in the same direction
+                boid.velocity += Vector3.Lerp(boid.velocity, oldestVel, Time.deltaTime * 0.8f);
+                boid.maxVelocity = oldestMaxVel - 0.7f;
             }
         }
+    }
+
+    IEnumerator FindTargetsWithDelay(float delay)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            FindVisibleTargets();
+        }
+    }
+
+    void FindVisibleTargets()
+    {
+        visibleTargets.Clear();
+        Collider[] targetsInViewRadius = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+
+        for (int i = 0; i < targetsInViewRadius.Length; i++)
+        {
+            Transform target = targetsInViewRadius[i].transform;
+            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            {
+                float dstToTarget = Vector3.Distance(transform.position, target.position);
+
+                if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
+                {//If a target is within a sheeps view radius and centred at the correct viewing angle its added to the list of visible targets
+                    visibleTargets.Add(target);
+
+                }
+            }
+        }
+    }
+
+
+    public Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
+    {
+        if (!angleIsGlobal)
+        {
+            angleInDegrees += transform.eulerAngles.y;
+        }
+        return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
     }
 }
