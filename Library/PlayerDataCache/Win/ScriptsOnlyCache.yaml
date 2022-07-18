@@ -4,9 +4,7 @@ ScriptsOnlyBuild:
     - UnityStandardAssets.Water.Water
     - UnityStandardAssets.Water.WaterBasic
     Assembly-CSharp.dll:
-    - AddGrass
-    - AddSheep
-    - AddTree
+    - AddEntity
     - BoidAlignment
     - BoidCohesion
     - BoidContainment
@@ -17,12 +15,14 @@ ScriptsOnlyBuild:
     - FieldOfView
     - GrassGrow
     - HealthScript
+    - Hunting
     - MenuScript
     - Sheep
     - ShowHealth
     - ShowInstruct
     - Tooltip
     - Tree
+    - Wolf
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     Unity.TextMeshPro.dll:
@@ -31,6 +31,12 @@ ScriptsOnlyBuild:
     - TMPro.TMP_Settings
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -71,11 +77,15 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
       Script: {instanceID: 0}
     - Class: 95
       Script: {instanceID: 0}
@@ -90,15 +100,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1544}
     - Class: 114
-      Script: {instanceID: 1692}
+      Script: {instanceID: 1732}
     - Class: 114
-      Script: {instanceID: 1734}
+      Script: {instanceID: 1774}
     - Class: 114
-      Script: {instanceID: 1776}
+      Script: {instanceID: 1798}
     - Class: 114
-      Script: {instanceID: 1800}
+      Script: {instanceID: 1830}
     - Class: 114
-      Script: {instanceID: 1832}
+      Script: {instanceID: 1858}
     - Class: 114
       Script: {instanceID: 1880}
     - Class: 114
@@ -116,43 +126,43 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2406}
     - Class: 114
-      Script: {instanceID: 2508}
+      Script: {instanceID: 2432}
     - Class: 114
-      Script: {instanceID: 2618}
+      Script: {instanceID: 2510}
     - Class: 114
-      Script: {instanceID: 2622}
+      Script: {instanceID: 2620}
     - Class: 114
-      Script: {instanceID: 2730}
+      Script: {instanceID: 2624}
     - Class: 114
-      Script: {instanceID: 2740}
+      Script: {instanceID: 2732}
     - Class: 114
-      Script: {instanceID: 2778}
+      Script: {instanceID: 2742}
     - Class: 114
-      Script: {instanceID: 2920}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2990}
+      Script: {instanceID: 2922}
     - Class: 114
-      Script: {instanceID: 3000}
+      Script: {instanceID: 2994}
     - Class: 114
-      Script: {instanceID: 3120}
+      Script: {instanceID: 3004}
     - Class: 114
-      Script: {instanceID: 3136}
+      Script: {instanceID: 3124}
     - Class: 114
-      Script: {instanceID: 3232}
+      Script: {instanceID: 3140}
     - Class: 114
-      Script: {instanceID: 3448}
+      Script: {instanceID: 3236}
     - Class: 114
-      Script: {instanceID: 3488}
+      Script: {instanceID: 3452}
     - Class: 114
-      Script: {instanceID: 3492}
+      Script: {instanceID: 3496}
     - Class: 114
-      Script: {instanceID: 3568}
+      Script: {instanceID: 3570}
     - Class: 114
-      Script: {instanceID: 3636}
+      Script: {instanceID: 3638}
     - Class: 114
-      Script: {instanceID: 3706}
+      Script: {instanceID: 3708}
     - Class: 114
-      Script: {instanceID: 3726}
+      Script: {instanceID: 3728}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -160,6 +170,8 @@ ScriptsOnlyBuild:
     - Class: 135
       Script: {instanceID: 0}
     - Class: 136
+      Script: {instanceID: 0}
+    - Class: 137
       Script: {instanceID: 0}
     - Class: 154
       Script: {instanceID: 0}
@@ -274,12 +286,6 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: b05b89535bc19e2f3f8195d242546b22
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: AddTree
-  - hash:
-      serializedVersion: 2
       Hash: 6bc76e17f0d5e93f3eea7f5a2fe227f3
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -346,7 +352,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 3bfac02835edf4d4c0935d264c2d1cf2
+      Hash: 661b6c6b2917d027e85464d52349a1cd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CameraSwivel
@@ -358,10 +364,16 @@ ScriptsOnlyBuild:
     className: WarpTextExample
   - hash:
       serializedVersion: 2
-      Hash: 86158a50904d13f706a63213493ee805
+      Hash: c1327aea00a2231cdc716cccbb0b0e00
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Sheep
+  - hash:
+      serializedVersion: 2
+      Hash: 02608f962ad8af5ae7f38b9cda7aa463
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Hunting
   - hash:
       serializedVersion: 2
       Hash: e63944317d2f5958e31963668bb29158
@@ -544,6 +556,12 @@ ScriptsOnlyBuild:
     className: TMP_UiFrameRateCounter
   - hash:
       serializedVersion: 2
+      Hash: 2556bd751b3730cf05ae46a5f178193a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Wolf
+  - hash:
+      serializedVersion: 2
       Hash: aba7b2852ef61d175dd9602e7723d5e5
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -712,7 +730,7 @@ ScriptsOnlyBuild:
     className: WaterBasic
   - hash:
       serializedVersion: 2
-      Hash: 02608f962ad8af5ae7f38b9cda7aa463
+      Hash: 93b8d44beffc87aae575937f8c12537e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BoidAlignment
@@ -856,12 +874,6 @@ ScriptsOnlyBuild:
     className: Tooltip
   - hash:
       serializedVersion: 2
-      Hash: 8de41149fb4bbe0606fa0dc4b5f9c3bf
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: AddGrass
-  - hash:
-      serializedVersion: 2
       Hash: 748dd2a2a28da4e618912da5ac45684b
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -904,10 +916,10 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: 343f815ee583a987b387e0a0ba026d87
+      Hash: 39d70bd8d3f4e9c4ba1be4506ad46d70
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: AddSheep
+    className: AddEntity
   - hash:
       serializedVersion: 2
       Hash: 8e6ceabfd38a184413d69b7db56c89cc

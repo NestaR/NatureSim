@@ -22,6 +22,10 @@ public class FieldOfViewEditor : Editor
 		{
 			Handles.DrawLine(fow.transform.position, visibleTarget.position);
 		}
+		foreach (Transform visiblePredator in fow.visiblePredators)
+		{
+			Handles.DrawLine(fow.transform.position, visiblePredator.position);
+		}
 	}
 
 }

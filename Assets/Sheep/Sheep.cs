@@ -15,7 +15,7 @@ public class Sheep : MonoBehaviour
     private UnityEngine.AI.NavMeshAgent agent;
     private float timer, hungertimer, healthtimer, agetimer, lerptimer, birthtimer;
     bool sleeping = false;
-    public bool follower = false, oldest = true, hungry = false;
+    public bool follower = false, oldest = true, hungry = false, hunted = false;
     bool hasCollided = false, oldestExists = false;
     float m_MaxDistance;
     bool m_HitDetect;
@@ -24,7 +24,7 @@ public class Sheep : MonoBehaviour
     Vector3 randTurn;
     Collider sheepCollider;
     RaycastHit m_Hit;
-    HealthScript sheepHealth;
+    public HealthScript sheepHealth;
     DayNightCycle timeOfDay;
     BoidCohesion leader;
     //Size for the sheep to lerp through
@@ -56,6 +56,7 @@ public class Sheep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(sheepHealth.health);
         if (!hasCollided)
         {//If there are no sheep nearby it becomes the oldest
             oldest = true;
@@ -78,7 +79,8 @@ public class Sheep : MonoBehaviour
             hungry = false;
         }
 
-        if (GameObject.Find("Day/Night").GetComponent<DayNightCycle>().dayTime)
+
+        if (GameObject.Find("Day/Night").GetComponent<DayNightCycle>().dayTime || hunted)
         {//Make the sheep only move during the day time
             sleeping = false;
             this.transform.position += velocity * Time.deltaTime;
@@ -126,7 +128,7 @@ public class Sheep : MonoBehaviour
                 }
             }
 
-            if (healthtimer >= 7f)
+            if (healthtimer >= 7f && !hunted)
             {//Lower the sheeps health every 5 seconds
                 sheepHealth.health -= 9;
                 healthtimer = 0;
@@ -135,7 +137,7 @@ public class Sheep : MonoBehaviour
                     maxVelocity += 0.05f;
                 }
             }
-            if (birthtimer >= 30f && sheepHealth.health >= 65)
+            if (birthtimer >= 30f && sheepHealth.health >= 65 && !hunted)
             {//If a certain amount of time has passed and the sheep has enough health it will reproduce
                 var position = new Vector3(transform.position.x, 0, transform.position.z);
                 Instantiate(prefab, position, Quaternion.identity);
@@ -150,7 +152,7 @@ public class Sheep : MonoBehaviour
             healthtimer += Time.deltaTime;
             if (healthtimer >= 10f)
             {
-                sheepHealth.health += 3;
+                sheepHealth.health += 5;
                 healthtimer = 0;
             }
         }
@@ -167,6 +169,13 @@ public class Sheep : MonoBehaviour
             randTurn = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
             velocity = Vector3.Lerp(velocity, randTurn, 0.8f);
             maxVelocity += 0.005f;
+            timer = 0;
+        }
+        else if(timer >= Random.Range(2f, 4f) && hunted)
+        {
+            //Debug.Log("turning");
+            randTurn = new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
+            velocity = Vector3.Lerp(velocity, randTurn, 0.8f);
             timer = 0;
         }
     }

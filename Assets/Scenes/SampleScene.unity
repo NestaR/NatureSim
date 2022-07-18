@@ -344,13 +344,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128612273}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -67.2, y: 5.3, z: -27.6}
+  m_LocalRotation: {x: -0, y: 0.024147581, z: -0, w: 0.9997085}
+  m_LocalPosition: {x: 91.6, y: 8, z: 88.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 2.767, z: 0}
 --- !u!1 &156369086
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,8 +385,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 900, y: 200}
+  m_AnchoredPosition: {x: 0, y: -11.6671}
+  m_SizeDelta: {x: 900, y: 249.2777}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &156369088
 MonoBehaviour:
@@ -423,12 +423,15 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Instructions
 
-    Left-click: select and place entities
+    WASD: move camera
 
-    Right-click:
-    drag the camera
+    Left-click: select and place
+    entities
 
-    Scroll wheel: zoom and press to deselect entity chosen'
+    Right-click: drag the camera
+
+    Scroll wheel: press to deselect
+    entity chosen'
 --- !u!222 &156369089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -977,7 +980,7 @@ RectTransform:
   m_Children:
   - {fileID: 1433904058}
   m_Father: {fileID: 1508986989}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -1700,7 +1703,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 23
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1752,7 +1755,7 @@ RectTransform:
   - {fileID: 600192525}
   - {fileID: 67159262}
   m_Father: {fileID: 1508986989}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1978,8 +1981,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1867031665}
-        m_TargetAssemblyTypeName: AddGrass, Assembly-CSharp
+      - m_Target: {fileID: 910991323}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: deselectGrass
         m_Mode: 1
         m_Arguments:
@@ -1990,9 +1993,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1718730711}
-        m_TargetAssemblyTypeName: AddTree, Assembly-CSharp
+      - m_Target: {fileID: 910991323}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: deselectTree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 910991323}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
+        m_MethodName: deselectWolf
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2053,6 +2068,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sheepPicked: 0
+  wolfPicked: 0
+  grassPicked: 0
+  treePicked: 0
   prefab: {fileID: 1965851562501010, guid: e82139b3bae6212439ea1e85ad29678b, type: 3}
 --- !u!1 &963194225
 GameObject:
@@ -2066,6 +2084,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2106,7 +2125,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 26.991467
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2132,7 +2151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.87, z: -8.39}
+  m_LocalPosition: {x: 0, y: 8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1014173213}
@@ -2150,11 +2169,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f197b73550a34ec429fa13a55677aebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MouseSensitivity: 2
+  MouseSensitivity: 1.5
   ScrollSensitvity: 2
   OrbitDampening: 10
   ScrollDampening: 6
+  movementSpeed: 25
   CameraDisabled: 1
+--- !u!65 &963194230
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1014173212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,7 +2212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014173212}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 8.18, z: -10}
+  m_LocalPosition: {x: 0, y: 20, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -2219,7 +2252,7 @@ RectTransform:
   m_Children:
   - {fileID: 413347926}
   m_Father: {fileID: 1508986989}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -2583,6 +2616,7 @@ RectTransform:
   - {fileID: 910991319}
   - {fileID: 1867031661}
   - {fileID: 1718730707}
+  - {fileID: 1999351993}
   - {fileID: 628338279}
   - {fileID: 1159700455}
   - {fileID: 1834804158}
@@ -2608,7 +2642,7 @@ GameObject:
   - component: {fileID: 1718730710}
   - component: {fileID: 1718730709}
   - component: {fileID: 1718730708}
-  - component: {fileID: 1718730711}
+  - component: {fileID: 1718730712}
   m_Layer: 5
   m_Name: TreeButton
   m_TagString: Untagged
@@ -2680,8 +2714,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1718730711}
-        m_TargetAssemblyTypeName: AddTree, Assembly-CSharp
+      - m_Target: {fileID: 1718730712}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: grabTree
         m_Mode: 1
         m_Arguments:
@@ -2692,8 +2726,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 910991323}
-        m_TargetAssemblyTypeName: AddSheep, Assembly-CSharp
+      - m_Target: {fileID: 1718730712}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: deselectSheep
         m_Mode: 1
         m_Arguments:
@@ -2704,9 +2738,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1867031665}
-        m_TargetAssemblyTypeName: AddGrass, Assembly-CSharp
+      - m_Target: {fileID: 1718730712}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: deselectGrass
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1718730712}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
+        m_MethodName: deselectWolf
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2754,7 +2800,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1718730706}
   m_CullTransparentMesh: 1
---- !u!114 &1718730711
+--- !u!114 &1718730712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2763,11 +2809,93 @@ MonoBehaviour:
   m_GameObject: {fileID: 1718730706}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd1f33980261c84fb36dc65d74e318e, type: 3}
+  m_Script: {fileID: 11500000, guid: 375b29d98346b7f40a914b44b7116847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sheepPicked: 0
+  wolfPicked: 0
+  grassPicked: 0
   treePicked: 0
   prefab: {fileID: 6941765000743290380, guid: c60edd51c065ceb46b345849a03bc106, type: 3}
+--- !u!1 &1766072507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1766072508}
+  - component: {fileID: 1766072510}
+  - component: {fileID: 1766072509}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1766072508
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766072507}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1999351993}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -0.5}
+  m_SizeDelta: {x: 242, y: 199}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1766072509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766072507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 7
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1766072510
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766072507}
+  m_CullTransparentMesh: 1
 --- !u!1 &1834804157
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,7 +2927,7 @@ RectTransform:
   - {fileID: 1219507159}
   - {fileID: 727269894}
   m_Father: {fileID: 1508986989}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2831,7 +2959,7 @@ GameObject:
   - component: {fileID: 1867031664}
   - component: {fileID: 1867031663}
   - component: {fileID: 1867031662}
-  - component: {fileID: 1867031665}
+  - component: {fileID: 1867031666}
   m_Layer: 5
   m_Name: GrassButton
   m_TagString: Untagged
@@ -2903,8 +3031,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1867031665}
-        m_TargetAssemblyTypeName: AddGrass, Assembly-CSharp
+      - m_Target: {fileID: 1867031666}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: grabGrass
         m_Mode: 1
         m_Arguments:
@@ -2915,8 +3043,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 910991323}
-        m_TargetAssemblyTypeName: AddSheep, Assembly-CSharp
+      - m_Target: {fileID: 1867031666}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: deselectSheep
         m_Mode: 1
         m_Arguments:
@@ -2927,9 +3055,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1718730711}
-        m_TargetAssemblyTypeName: AddTree, Assembly-CSharp
+      - m_Target: {fileID: 1867031666}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
         m_MethodName: deselectTree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1867031666}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
+        m_MethodName: deselectWolf
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2977,7 +3117,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1867031660}
   m_CullTransparentMesh: 1
---- !u!114 &1867031665
+--- !u!114 &1867031666
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2986,10 +3126,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867031660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e737d66446ea1e549a9d0eda598f1c6e, type: 3}
+  m_Script: {fileID: 11500000, guid: 375b29d98346b7f40a914b44b7116847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sheepPicked: 0
+  wolfPicked: 0
   grassPicked: 0
+  treePicked: 0
   prefab: {fileID: 8903058273634794869, guid: f1fc5bb90ac285e4486771552d63bcb8, type: 3}
 --- !u!1 &1887921668
 GameObject:
@@ -3050,7 +3193,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 23
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -3183,7 +3326,7 @@ RectTransform:
   - {fileID: 1897723483}
   - {fileID: 2058675971}
   m_Father: {fileID: 1508986989}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3299,6 +3442,193 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941062151}
   m_CullTransparentMesh: 1
+--- !u!1 &1999351992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1999351993}
+  - component: {fileID: 1999351997}
+  - component: {fileID: 1999351996}
+  - component: {fileID: 1999351995}
+  - component: {fileID: 1999351994}
+  m_Layer: 5
+  m_Name: WolfButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1999351993
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999351992}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1766072508}
+  m_Father: {fileID: 1508986989}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 772, y: -138.78369}
+  m_SizeDelta: {x: 241.78809, y: 199.01001}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1999351994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999351992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 375b29d98346b7f40a914b44b7116847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheepPicked: 0
+  wolfPicked: 0
+  grassPicked: 0
+  treePicked: 0
+  prefab: {fileID: 177940, guid: 0bff5de0452ee2b4ab4d0603fe171d7b, type: 3}
+--- !u!114 &1999351995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999351992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1999351996}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1999351994}
+        m_TargetAssemblyTypeName: AddSheep, Assembly-CSharp
+        m_MethodName: grabWolf
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1999351994}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
+        m_MethodName: deselectSheep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1999351994}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
+        m_MethodName: deselectGrass
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1999351994}
+        m_TargetAssemblyTypeName: AddEntity, Assembly-CSharp
+        m_MethodName: deselectTree
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1999351996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999351992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 9f6b712fa94530f41a8cb4ff9cce1888, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1999351997
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1999351992}
+  m_CullTransparentMesh: 1
 --- !u!1 &2058675970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3334,8 +3664,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 294.69995, y: -1738.7485}
-  m_SizeDelta: {x: 900, y: 200}
+  m_AnchoredPosition: {x: 294.69995, y: -1712.4414}
+  m_SizeDelta: {x: 900, y: 252.6144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2058675972
 MonoBehaviour:

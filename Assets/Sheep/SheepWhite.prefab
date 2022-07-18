@@ -281,6 +281,8 @@ MonoBehaviour:
   follower: 0
   oldest: 1
   hungry: 0
+  hunted: 0
+  sheepHealth: {fileID: 0}
 --- !u!114 &7089307902296267446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,10 +301,14 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
+  predatorMask:
+    serializedVersion: 2
+    m_Bits: 128
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
   visibleTargets: []
+  visiblePredators: []
 --- !u!114 &4996658078780295670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,12 +341,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1965851562501010}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ddd6e8a2af31d24790203f80def39cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.5
+  radius: 20
   repulsionForce: 1
 --- !u!114 &-528744416913708075
 MonoBehaviour:
